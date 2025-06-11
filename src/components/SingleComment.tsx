@@ -4,6 +4,7 @@ import {
   Repeat,
   Reply,
   Send,
+  SubdirectoryArrowRightRounded,
 } from "@mui/icons-material";
 import { Avatar, CardActions, IconButton, Typography } from "@mui/material";
 
@@ -30,26 +31,33 @@ export default function SingleComment() {
           variant="h6"
           component="div"
           color="#1c1b1d"
-          style={{ marginTop: "15px", paddingLeft:"5px", fontSize: "15px", 
-            paddingTop: "4px", fontStyle:"italic" }}
+          style={{
+            marginTop: "15px",
+            paddingLeft: "5px",
+            fontSize: "15px",
+            paddingTop: "4px",
+            fontStyle: "italic",
+          }}
         >
           @username1
         </Typography>
-        <div style={{display: "flex", justifyContent: "flex-end", width:"100%"}}>
-        <Typography
-          gutterBottom
-          variant="h6"
-          component="div"
-          style={{ paddingTop: "22px", paddingRight:"30px" }}
-          sx={{ color: "#1c1b1d", fontSize: "12px" }}
+        <div
+          style={{ display: "flex", justifyContent: "flex-end", width: "100%" }}
         >
-          14:00 PM, 4 April 2025
-        </Typography>
+          <Typography
+            gutterBottom
+            variant="h6"
+            component="div"
+            style={{ paddingTop: "22px", paddingRight: "30px" }}
+            sx={{ color: "#1c1b1d", fontSize: "12px" }}
+          >
+            14:00 PM, 4 April 2025
+          </Typography>
         </div>
       </div>
       <Typography
         variant="body2"
-        sx={{ color:"#000000" , fontSize: "14px" }}
+        sx={{ color: "#000000", fontSize: "14px" }}
         style={{ marginLeft: "46px" }}
       >
         Lizards are a widespread group of squamate reptiles, with over 6,000
@@ -65,16 +73,10 @@ export default function SingleComment() {
           ></FavoriteBorder>
         </IconButton>
         <IconButton>
-          <Reply
-            color="primary"
-            sx={{ fontSize: "25px" }}
-          ></Reply>
+          <Reply color="primary" sx={{ fontSize: "25px" }}></Reply>
         </IconButton>
         <IconButton>
-          <Repeat
-            color="primary"
-            sx={{ fontSize: "25px" }}
-          ></Repeat>
+          <Repeat color="primary" sx={{ fontSize: "25px" }}></Repeat>
         </IconButton>
         <IconButton>
           <Send color="primary" sx={{ fontSize: "25px" }}></Send>

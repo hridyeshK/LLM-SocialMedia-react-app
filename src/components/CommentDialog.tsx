@@ -1,9 +1,12 @@
 import {
+  ArrowDownward,
+  ArrowUpward,
   BookmarkBorderOutlined,
   ChatBubbleOutlineOutlined,
   FavoriteBorder,
   Repeat,
   Send,
+  SubdirectoryArrowRightRounded,
 } from "@mui/icons-material";
 import {
   Avatar,
@@ -11,21 +14,26 @@ import {
   Dialog,
   Grow,
   IconButton,
-  Slide,
   Typography,
 } from "@mui/material";
 import Button from "@mui/material/Button";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import SingleComment from "./SingleComment";
+import { useState } from "react";
 // import { useState } from "react";
 
+type Arr = {
+  a: number;
+  b: Arr[];
+};
 
 export default function CommentDialog(props: {
-  open: boolean, 
-  setOpen:  React.Dispatch<React.SetStateAction<boolean>>,
+  open: boolean;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
   // const [open, setOpen] = useState(props.open);
+  const [commentsClicked, setCommentsClicled] = useState<boolean>(true);
 
   return (
     <div>
@@ -37,16 +45,19 @@ export default function CommentDialog(props: {
         slots={{ transition: Grow }} // Use slots.transition for the Grow effect
         slotProps={{
           transition: {
-            // timeout: 1000, 
+            // timeout: 1000,
           },
         }}
       >
         {/* <DialogTitle>Comments</DialogTitle> */}
-        <DialogContent style={{ height: "80vh", display: "flex" }}>
+        {/* for comments section and post side-by-side, use flex */}
+        {/* <DialogContent style={{ height: "80vh", display: "flex" }}> */}
+        <DialogContent style={{ height: "80vh" }}>
           {/* <DialogContentText>
             You can set my maximum width and whether to adapt or not.
           </DialogContentText> */}
-          <div style={{ width: "50%", padding: "3px" }}>
+          {/* <div style={{ width: "50%", padding: "3px" }}> */}
+          <div style={{ padding: "3px" }}>
             <div style={{ display: "flex" }}>
               <Avatar
                 src="https://mui.com/static/images/avatar/1.jpg"
@@ -88,10 +99,7 @@ export default function CommentDialog(props: {
                 ></ChatBubbleOutlineOutlined>
               </IconButton>
               <IconButton>
-                <Repeat
-                  color="primary"
-                  sx={{ fontSize: "35px" }}
-                ></Repeat>
+                <Repeat color="primary" sx={{ fontSize: "35px" }}></Repeat>
               </IconButton>
               <IconButton>
                 <Send color="primary" sx={{ fontSize: "35px" }}></Send>
@@ -105,18 +113,92 @@ export default function CommentDialog(props: {
             </CardActions>
           </div>
 
-          <div style={{ width: "50%" }}>
-            <SingleComment></SingleComment>
-            <SingleComment></SingleComment>
+          <div>
+            <Button
+              variant="text"
+              style={{ fontWeight: "bold" }}
+              endIcon={
+                commentsClicked ? (
+                  <ArrowDownward />
+                ) : (
+                  <ArrowUpward></ArrowUpward>
+                )
+              }
+              onClick={() => {
+                setCommentsClicled(!commentsClicked);
+              }}
+            >
+              COMMENTS
+            </Button>
+            {commentsClicked ? (
+              <RecursiveDialog
+                a={1}
+                b={[
+                  {
+                    a: 1,
+                    b: [
+                      {
+                        a: 1,
+                        b: [{ a: 1, b: [{ a: 1, b: [{ a: 1, b: [] }] }] }],
+                      },
+                      {
+                        a: 1,
+                        b: [{ a: 1, b: [{ a: 1, b: [{ a: 1, b: [] }] }] }],
+                      },
+                    ],
+                  },
+                ]}
+              ></RecursiveDialog>
+            ) : (
+              ""
+            )}
           </div>
         </DialogContent>
         <DialogActions>
           <Button
-           onClick={()=>{props.setOpen(false)}}
-           >
-            Close</Button>
+            onClick={() => {
+              props.setOpen(false);
+            }}
+          >
+            Close
+          </Button>
         </DialogActions>
       </Dialog>
     </div>
   );
 }
+
+const RecursiveDialog = ({ a, b }: Arr) => {
+  return (
+    <>
+      {/* <div style={{ width: "50%" }}> */}
+      <div>
+        <SingleComment></SingleComment>
+
+        <div style={{ display: "flex" }}>
+          <div
+            style={{
+              // height: "100%",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              flexGrow: "inherit",
+            }}
+          >
+            {/* <IconButton>
+              <SubdirectoryArrowRightRounded
+                color="primary"
+                sx={{ fontSize: "45px" }}
+              ></SubdirectoryArrowRightRounded>
+            </IconButton> */}
+          </div>
+          <div style={{ paddingLeft: "30px" }}>
+            {b.map((x, i) => (
+              <RecursiveDialog key={i} a={x.a} b={x.b}></RecursiveDialog>
+            ))}
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};

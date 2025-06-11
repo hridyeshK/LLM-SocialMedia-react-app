@@ -25,6 +25,9 @@ import Profile from "./Profile";
 import AskAI from "./AskAI";
 import HomeFilledIcon from "@mui/icons-material/HomeFilled";
 import Lists from "./Lists";
+import HomePage from "./HomePage";
+import { BigContext } from "./GlobalContext";
+import { useContext } from "react";
 
 const drawerWidth = 240;
 
@@ -119,7 +122,7 @@ export default function PermanentDrawerLeft() {
         >
           <Toolbar />
           <Routes>
-            {/* <Route path="/Home" element={<App />} /> */}
+            <Route path="/" element={<HomePage />} />
             <Route path="/Profile" element={<Profile />} />
             <Route path="/Ask AI" element={<AskAI />} />
             <Route path="/Lists" element={<Lists />} />
@@ -130,7 +133,7 @@ export default function PermanentDrawerLeft() {
   );
 }
 
-const GetIcon = ({ icon }: {icon: string}) => {
+const GetIcon = ({ icon }: { icon: string }) => {
   if (icon == "Profile")
     return (
       <>

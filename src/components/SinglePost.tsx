@@ -13,18 +13,22 @@ import {
   Send,
 } from "@mui/icons-material";
 import CommentDialog from "./CommentDialog";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { postType } from "../Types/all.interface";
+import { BigContext } from "./GlobalContext";
 
-export default function SinglePost() {
+export default function SinglePost(post: postType) {
   const [open, setOpen] = useState(false);
   const [likeClicked, setLikeClicked] = useState(false);
   const [bookmarkClicked, setBookmarkClicked] = useState(false);
+  const { currUser, allUsers } = useContext(BigContext);
 
   return (
     <div>
       <Card
         sx={{
           maxWidth: 630,
+          minWidth: 630,
           // boxShadow: 0,
           // border: 1,
           borderRadius: "27px",
@@ -44,27 +48,65 @@ export default function SinglePost() {
               style={{ marginRight: "16px" }}
               sx={{ width: 60, height: 60 }}
             />
+
             <Typography
               gutterBottom
               variant="h5"
               component="div"
-              style={{ marginTop: "16px", fontWeight: "bold" }}
+              // display={"-ms-inline-flexbox"}
+              style={{
+                marginTop: "7px",
+                fontWeight: "bold",
+                // display: "flex",
+                // flexDirection: "row",
+                // wordWrap: "break-word",
+              }}
+              sx={
+                {
+                  // whiteSpace: "break-spaces",
+                }
+              }
             >
-              Lizard
+              <div>{currUser.name.split(" ")[0]}</div>
+              {/* {currUser.name[1]} */}
             </Typography>
+
+            <Typography
+              gutterBottom
+              variant="h5"
+              component="div"
+              // display={"-ms-inline-flexbox"}
+              style={{
+                marginTop: "7px",
+                marginLeft: "3px",
+                fontWeight: "bold",
+                // display: "flex",
+                // flexDirection: "row",
+                // wordWrap: "break-word",
+              }}
+              sx={
+                {
+                  // whiteSpace: "break-spaces",
+                }
+              }
+            >
+              <div>{currUser.name.split(" ")[1]}</div>
+              {/* {currUser.name[1]} */}
+            </Typography>
+
             <Typography
               gutterBottom
               component="div"
               color="#1c1b1d"
               style={{
-                marginTop: "16px",
+                marginTop: "9px",
                 paddingLeft: "5px",
                 fontSize: "15px",
                 paddingTop: "4px",
                 fontStyle: "italic",
               }}
             >
-              @username1
+              {/* @{post.post_by} */}@{currUser.username}
             </Typography>
             <div
               style={{
@@ -77,10 +119,10 @@ export default function SinglePost() {
                 gutterBottom
                 variant="h6"
                 component="div"
-                style={{ paddingTop: "22px", paddingRight: "30px" }}
+                style={{ paddingTop: "20px", paddingRight: "30px" }}
                 sx={{ color: "#1c1b1d", fontSize: "12px" }}
               >
-                14:00 PM, 4 April 2025
+                {post.time}
               </Typography>
             </div>
           </div>
@@ -89,8 +131,7 @@ export default function SinglePost() {
             sx={{ color: "#1c1b1d", fontSize: "16px" }}
             style={{ marginLeft: "76px" }}
           >
-            Lizards are a widespread group of squamate reptiles, with over 6,000
-            species, ranging across all continents except Antarctica
+            {post.post_text}
           </Typography>
         </CardContent>
         <CardActions sx={{ display: "flex", justifyContent: "space-around" }}>
