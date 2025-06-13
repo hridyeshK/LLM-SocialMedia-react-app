@@ -21,7 +21,11 @@ export default function SinglePost(post: postType) {
   const [open, setOpen] = useState(false);
   const [likeClicked, setLikeClicked] = useState(false);
   const [bookmarkClicked, setBookmarkClicked] = useState(false);
-  const { currUser, allUsers } = useContext(BigContext);
+  const { allUsers } = useContext(BigContext);
+  // console.log("post by: ", post.post_by);
+  // console.log(allUsers.filter((x) => x.id === post.post_by));
+  const name = allUsers.filter((x) => x.id === post.post_by)[0]?.name;
+  const username = allUsers.filter((x) => x.id === post.post_by)[0]?.username;
 
   return (
     <div>
@@ -67,7 +71,7 @@ export default function SinglePost(post: postType) {
                 }
               }
             >
-              <div>{currUser.name.split(" ")[0]}</div>
+              <div>{name?.split(" ")[0]}</div>
               {/* {currUser.name[1]} */}
             </Typography>
 
@@ -90,7 +94,7 @@ export default function SinglePost(post: postType) {
                 }
               }
             >
-              <div>{currUser.name.split(" ")[1]}</div>
+              <div>{name?.split(" ")[1]}</div>
               {/* {currUser.name[1]} */}
             </Typography>
 
@@ -106,7 +110,7 @@ export default function SinglePost(post: postType) {
                 fontStyle: "italic",
               }}
             >
-              {/* @{post.post_by} */}@{currUser.username}
+              {/* @{post.post_by} */}@{username}
             </Typography>
             <div
               style={{
@@ -181,7 +185,7 @@ export default function SinglePost(post: postType) {
           </IconButton>
         </CardActions>
       </Card>
-      <CommentDialog open={open} setOpen={setOpen}></CommentDialog>
+      <CommentDialog open={open} setOpen={setOpen} post={post}></CommentDialog>
     </div>
   );
 }

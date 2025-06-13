@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import SinglePost from "./SinglePost";
 import { AddCircleOutlineRounded } from "@mui/icons-material";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { BigContext } from "./GlobalContext";
 
 const style1 = {
@@ -20,7 +20,7 @@ const style1 = {
 };
 
 export default function Profile() {
-  const { currUser, setAllPosts, allPosts, allUsers } = useContext(BigContext);
+  const { currUser, allPosts } = useContext(BigContext);
   // const [checked, setChecked] = React.useState(false);
   // const handleChange = () => {
   //   console.log("hello1");
@@ -38,7 +38,7 @@ export default function Profile() {
         .slice(0)
         .reverse()
         .map((x, i) => (
-          <div style={style1}>
+          <div key={i} style={style1}>
             <SinglePost
               post_id={1}
               post_by={currUser.id}
@@ -64,7 +64,7 @@ export default function Profile() {
   );
 }
 
-const Textbox = () => {
+export const Textbox = () => {
   const { currUser, setAllPosts, allPosts } = useContext(BigContext);
   const [value, setValue] = useState("");
   let formattedDate: string;
@@ -73,26 +73,6 @@ const Textbox = () => {
   const handleClose = () => {
     setOpen(false);
   };
-
-  function getFormattedDateTime(): string {
-    const now = new Date();
-
-    // Format components
-    const day = String(now.getDate()).padStart(2, "0");
-    const month = String(now.getMonth() + 1).padStart(2, "0"); // Months are 0-indexed
-    const year = now.getFullYear();
-
-    let hours = now.getHours();
-    const minutes = String(now.getMinutes()).padStart(2, "0");
-    const ampm = hours >= 12 ? "pm" : "am";
-
-    // Convert to 12-hour format
-    hours = hours % 12;
-    hours = hours ? hours : 12; // 0 should be 12
-
-    const formattedTime = `${day}.${month}.${year}, ${hours}:${minutes} ${ampm}`;
-    return formattedTime;
-  }
 
   // useEffect(() => {
   //   formattedDate = getFormattedDateTime();
@@ -182,8 +162,6 @@ const Textbox = () => {
                       ]);
                       setValue("");
                       setOpen(true);
-                      console.log(allPosts);
-                      console.log(maxPostID);
                     }
                   }}
                 >
@@ -232,3 +210,23 @@ const Textbox = () => {
     </div>
   );
 };
+
+export function getFormattedDateTime(): string {
+  const now = new Date();
+
+  // Format components
+  const day = String(now.getDate()).padStart(2, "0");
+  const month = String(now.getMonth() + 1).padStart(2, "0"); // Months are 0-indexed
+  const year = now.getFullYear();
+
+  let hours = now.getHours();
+  const minutes = String(now.getMinutes()).padStart(2, "0");
+  const ampm = hours >= 12 ? "pm" : "am";
+
+  // Convert to 12-hour format
+  hours = hours % 12;
+  hours = hours ? hours : 12; // 0 should be 12
+
+  const formattedTime = `${day}.${month}.${year}, ${hours}:${minutes} ${ampm}`;
+  return formattedTime;
+}

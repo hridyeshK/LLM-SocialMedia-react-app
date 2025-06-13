@@ -7,8 +7,17 @@ import {
   SubdirectoryArrowRightRounded,
 } from "@mui/icons-material";
 import { Avatar, CardActions, IconButton, Typography } from "@mui/material";
+import { commentType } from "../Types/all.interface";
+import { useContext } from "react";
+import { BigContext } from "./GlobalContext";
 
-export default function SingleComment() {
+export default function SingleComment(props: { comment: commentType }) {
+  const { allUsers } = useContext(BigContext);
+  const name = allUsers.filter((x) => x.id === props.comment.comment_by)[0]
+    ?.name;
+  const username = allUsers.filter((x) => x.id === props.comment.comment_by)[0]
+    ?.username;
+
   return (
     <div>
       <div style={{ display: "flex" }}>
@@ -24,7 +33,7 @@ export default function SingleComment() {
           component="div"
           style={{ marginTop: "16px" }}
         >
-          Lizard
+          {name}
         </Typography>
         <Typography
           gutterBottom
@@ -39,7 +48,7 @@ export default function SingleComment() {
             fontStyle: "italic",
           }}
         >
-          @username1
+          @{username}
         </Typography>
         <div
           style={{ display: "flex", justifyContent: "flex-end", width: "100%" }}
@@ -60,9 +69,7 @@ export default function SingleComment() {
         sx={{ color: "#000000", fontSize: "14px" }}
         style={{ marginLeft: "46px" }}
       >
-        Lizards are a widespread group of squamate reptiles, with over 6,000
-        species, ranging across all continents except Antarctica Lizards are a
-        widespread group of squamate reptiles, with over
+        {props.comment.comment_text}
       </Typography>
 
       <CardActions sx={{ display: "flex", justifyContent: "space-around" }}>

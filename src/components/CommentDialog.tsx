@@ -20,20 +20,25 @@ import Button from "@mui/material/Button";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import SingleComment from "./SingleComment";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { commentType, postType } from "../Types/all.interface";
+import { BigContext } from "./GlobalContext";
 // import { useState } from "react";
-
-type Arr = {
-  a: number;
-  b: Arr[];
-};
 
 export default function CommentDialog(props: {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  post: postType;
 }) {
   // const [open, setOpen] = useState(props.open);
+  const { allUsers } = useContext(BigContext);
   const [commentsClicked, setCommentsClicled] = useState<boolean>(true);
+  const name = allUsers.filter((x) => x.id === props.post.post_by)[0]?.name;
+  // const username = allUsers.filter((x) => x.id === props.post.post_by)[0]?.username;
+  console.log(props.post);
+  const AllComments = props.post.commentsArray.map((x, i) => (
+    <RecursiveDialog key={i} comment={x}></RecursiveDialog>
+  ));
 
   return (
     <div>
@@ -70,7 +75,7 @@ export default function CommentDialog(props: {
                 component="div"
                 style={{ marginTop: "16px" }}
               >
-                Lizard
+                {name}
               </Typography>
             </div>
             <Typography
@@ -78,9 +83,7 @@ export default function CommentDialog(props: {
               sx={{ color: "#1c1b1d", fontSize: "24px" }}
               style={{ marginLeft: "76px" }}
             >
-              Lizards are a widespread group of squamate reptiles, with over
-              6,000 species, ranging across all continents except Antarctica
-              Lizards are a widespread group of squamate reptiles, with over
+              {props.post.post_text}
             </Typography>
 
             <CardActions
@@ -130,28 +133,8 @@ export default function CommentDialog(props: {
             >
               COMMENTS
             </Button>
-            {commentsClicked ? (
-              <RecursiveDialog
-                a={1}
-                b={[
-                  {
-                    a: 1,
-                    b: [
-                      {
-                        a: 1,
-                        b: [{ a: 1, b: [{ a: 1, b: [{ a: 1, b: [] }] }] }],
-                      },
-                      {
-                        a: 1,
-                        b: [{ a: 1, b: [{ a: 1, b: [{ a: 1, b: [] }] }] }],
-                      },
-                    ],
-                  },
-                ]}
-              ></RecursiveDialog>
-            ) : (
-              ""
-            )}
+
+            {commentsClicked ? AllComments : ""}
           </div>
         </DialogContent>
         <DialogActions>
@@ -168,12 +151,14 @@ export default function CommentDialog(props: {
   );
 }
 
-const RecursiveDialog = ({ a, b }: Arr) => {
+const RecursiveDialog = (props: { comment: commentType }) => {
+  const [commentsClicked, setCommentsClicled] = useState<boolean>(false);
+
   return (
     <>
       {/* <div style={{ width: "50%" }}> */}
       <div>
-        <SingleComment></SingleComment>
+        <SingleComment comment={props.comment}></SingleComment>
 
         <div style={{ display: "flex" }}>
           <div
@@ -192,11 +177,34 @@ const RecursiveDialog = ({ a, b }: Arr) => {
               ></SubdirectoryArrowRightRounded>
             </IconButton> */}
           </div>
-          <div style={{ paddingLeft: "30px" }}>
-            {b.map((x, i) => (
-              <RecursiveDialog key={i} a={x.a} b={x.b}></RecursiveDialog>
-            ))}
-          </div>
+
+          <Button
+            variant="text"
+            style={{ fontWeight: "bold", paddingLeft: "30px" }}
+            endIcon={
+              commentsClicked ? <ArrowDownward /> : <ArrowUpward></ArrowUpward>
+            }
+            onClick={() => {
+              setCommentsClicled(!commentsClicked);
+            }}
+          >
+            Show Replies
+          </Button>
+
+          {commentsClicked ? (
+            <div style={{ marginLeft: "30px" }}>
+              {props.comment.commentsArray.map((x, i) => (
+                <RecursiveDialog key={i} comment={x}></RecursiveDialog>
+              ))}
+            </div>
+          ) : (
+            ""
+          )}
+
+          {/* <div style={{ marginLeft: "30px" }}>
+            {props.comment.commentsArray.map((x, i) => (
+              <RecursiveDialog key={i} comment={x}></RecursiveDialog>
+            ))} */}
         </div>
       </div>
     </>
