@@ -1,5 +1,6 @@
-import { createContext, ReactNode, useContext, useState } from "react";
+import { createContext, ReactNode, useState } from "react";
 import {
+  actualCommentType,
   BookmartSet,
   likeSet,
   postType,
@@ -17,6 +18,10 @@ interface GlobalContextType {
   SetSetOfBookmarks: React.Dispatch<React.SetStateAction<Set<BookmartSet>>>;
   allUsers: userType[];
   setAllUsers: React.Dispatch<React.SetStateAction<userType[]>>;
+  allCommentsMap: Map<number, actualCommentType>;
+  setAllCommentsMap: React.Dispatch<
+    React.SetStateAction<Map<number, actualCommentType>>
+  >;
 }
 
 // const BigContext = createContext();
@@ -32,6 +37,8 @@ export const BigContext = createContext<GlobalContextType>({
   SetSetOfBookmarks: () => {}, // Default no-op function for the setter
   allUsers: [],
   setAllUsers: () => {},
+  allCommentsMap: new Map(), // index of a comment in this array will be same as its comment ID
+  setAllCommentsMap: () => {}, // for changing/creating a comment
 });
 
 export default function GlobalContext({ children }: { children: ReactNode }) {
@@ -47,6 +54,9 @@ export default function GlobalContext({ children }: { children: ReactNode }) {
     new Set()
   );
   const [allUsers, setAllUsers] = useState<userType[]>([]);
+  const [allCommentsMap, setAllCommentsMap] = useState<
+    Map<number, actualCommentType>
+  >(new Map());
 
   return (
     <div>
@@ -62,6 +72,8 @@ export default function GlobalContext({ children }: { children: ReactNode }) {
           SetSetOfBookmarks,
           allUsers,
           setAllUsers,
+          allCommentsMap,
+          setAllCommentsMap,
         }}
       >
         {children}

@@ -8,8 +8,14 @@ export default function AskAI() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
-  const { setCurrUser, setAllUsers, allUsers, setAllPosts } =
-    useContext(BigContext);
+  const {
+    setCurrUser,
+    setAllUsers,
+    allUsers,
+    setAllPosts,
+    setAllCommentsMap,
+    allCommentsMap,
+  } = useContext(BigContext);
   const navigate = useNavigate();
 
   // initialize dummy data
@@ -26,6 +32,26 @@ export default function AskAI() {
       { id: maxid + 6, name: "Light Yagami", username: "iamgod" },
     ]);
 
+    const max_com = allCommentsMap.size;
+    setAllCommentsMap((x) => {
+      const newMap = new Map(x);
+      newMap.set(max_com + 1, {
+        comment_by: 2,
+        comment_text: "this is a comment",
+        likes: 0,
+        replies: 0,
+        retweets: 0,
+      });
+      newMap.set(max_com + 2, {
+        comment_by: 2,
+        comment_text: "this is a comment",
+        likes: 0,
+        replies: 0,
+        retweets: 0,
+      });
+      return newMap;
+    });
+
     const maxid_post = allUsers.length;
     setAllPosts((x) => [
       ...x,
@@ -37,60 +63,29 @@ export default function AskAI() {
         commentsArray: [
           {
             comment_id: 1,
-            comment_by: 2,
-            comment_text: "this is a comment",
             commentsArray: [
               {
                 comment_id: 5,
-                comment_by: 2,
-                comment_text: "this is a comment inside comment",
                 commentsArray: [
                   {
                     comment_id: 6,
-                    comment_by: 3,
-                    comment_text:
-                      "this is a comment inside a comment inside comment",
                     commentsArray: [],
-                    likes: 0,
-                    replies: 0,
-                    retweets: 0,
                   },
                 ],
-                likes: 0,
-                replies: 0,
-                retweets: 0,
               },
             ],
-            likes: 0,
-            replies: 0,
-            retweets: 0,
           },
           {
             comment_id: 2,
-            comment_by: 3,
-            comment_text: "this is a comment",
             commentsArray: [],
-            likes: 0,
-            replies: 0,
-            retweets: 0,
           },
           {
             comment_id: 3,
-            comment_by: 4,
-            comment_text: "this is a comment",
             commentsArray: [],
-            likes: 0,
-            replies: 0,
-            retweets: 0,
           },
           {
             comment_id: 4,
-            comment_by: 5,
-            comment_text: "this is a comment",
             commentsArray: [],
-            likes: 0,
-            replies: 0,
-            retweets: 0,
           },
         ],
         likes: 0,

@@ -6,11 +6,11 @@ export interface userType {
   
   export interface commentType {
     comment_id: number;
-    comment_by: number;
-    comment_text: string;
-    likes: number;
-    retweets: number;
-    replies: number;
+    // comment_by: number;
+    // comment_text: string;
+    // likes: number;
+    // retweets: number;
+    // replies: number;
     commentsArray: commentType[];
   }
   
@@ -35,5 +35,12 @@ export interface userType {
     user_id: number;
   }
 
+  export interface actualCommentType {
+    comment_by: number;
+    comment_text: string;
+    likes: number;
+    retweets: number;
+    replies: number;
+  }
 
  

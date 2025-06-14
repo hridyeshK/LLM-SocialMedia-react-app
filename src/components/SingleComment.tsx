@@ -12,11 +12,18 @@ import { useContext } from "react";
 import { BigContext } from "./GlobalContext";
 
 export default function SingleComment(props: { comment: commentType }) {
-  const { allUsers } = useContext(BigContext);
-  const name = allUsers.filter((x) => x.id === props.comment.comment_by)[0]
-    ?.name;
-  const username = allUsers.filter((x) => x.id === props.comment.comment_by)[0]
-    ?.username;
+  const { allUsers, allCommentsMap } = useContext(BigContext);
+  // const actualComment = allCommentsMap.get(props.comment.comment_id);
+  const name = allCommentsMap.has(props.comment.comment_id)
+    ? allUsers.filter(
+        (x) => x.id === allCommentsMap.get(props.comment.comment_id)?.comment_by
+      )[0]?.name
+    : "";
+  const username = allCommentsMap.has(props.comment.comment_id)
+    ? allUsers.filter(
+        (x) => x.id === allCommentsMap.get(props.comment.comment_id)?.comment_by
+      )[0]?.username
+    : "";
 
   return (
     <div>
@@ -69,7 +76,8 @@ export default function SingleComment(props: { comment: commentType }) {
         sx={{ color: "#000000", fontSize: "14px" }}
         style={{ marginLeft: "46px" }}
       >
-        {props.comment.comment_text}
+        {allCommentsMap.get(props.comment.comment_id)?.comment_text ||
+          "[Comment Deleted]"}
       </Typography>
 
       <CardActions sx={{ display: "flex", justifyContent: "space-around" }}>

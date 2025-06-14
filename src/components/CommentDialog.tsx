@@ -180,7 +180,12 @@ const RecursiveDialog = (props: { comment: commentType }) => {
 
           <Button
             variant="text"
-            style={{ fontWeight: "bold", paddingLeft: "30px" }}
+            style={{
+              fontWeight: "bold",
+              paddingLeft: "30px",
+              height: "50%",
+              marginRight: "10px",
+            }}
             endIcon={
               commentsClicked ? <ArrowDownward /> : <ArrowUpward></ArrowUpward>
             }
@@ -192,7 +197,7 @@ const RecursiveDialog = (props: { comment: commentType }) => {
           </Button>
 
           {commentsClicked ? (
-            <div style={{ marginLeft: "30px" }}>
+            <div style={{ marginLeft: "30x" }}>
               {props.comment.commentsArray.map((x, i) => (
                 <RecursiveDialog key={i} comment={x}></RecursiveDialog>
               ))}
