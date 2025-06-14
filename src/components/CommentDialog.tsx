@@ -45,7 +45,7 @@ export default function CommentDialog(props: {
   //   <RecursiveDialog key={i} comment={x}></RecursiveDialog>
   // ));
   const newCommentArray = Array.from(allCommentsMap).filter(
-    (x) => x[1].parent_id == null
+    (x) => x[1].parent_id == null && x[1].parent_post_id == props.post.post_id
   );
   const AllComments = newCommentArray.map((x, i) => (
     <RecursiveDialog key={i} parentID={x[0]} comment={x[1]}></RecursiveDialog>
@@ -127,7 +127,15 @@ export default function CommentDialog(props: {
             </CardActions>
           </div>
 
-          <TextField style={{ borderRadius: "50%" }}></TextField>
+          <TextField
+            size="small"
+            style={{ borderRadius: "50%" }}
+            InputProps={{
+              style: {
+                borderRadius: "50px",
+              },
+            }}
+          ></TextField>
 
           <div>
             <Button
@@ -180,7 +188,15 @@ const RecursiveDialog = (props: {
       <div>
         <SingleComment comment_id={props.parentID}></SingleComment>
 
-        <TextField size="small" style={{ marginLeft: "30px" }}></TextField>
+        <TextField
+          size="small"
+          style={{ marginLeft: "30px" }}
+          InputProps={{
+            style: {
+              borderRadius: "50px",
+            },
+          }}
+        ></TextField>
 
         <div style={{ display: "flex" }}>
           <div

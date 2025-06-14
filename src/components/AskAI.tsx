@@ -42,6 +42,7 @@ export default function AskAI() {
         replies: 0,
         retweets: 0,
         parent_id: null,
+        parent_post_id: 2,
       });
       newMap.set(max_com + 2, {
         comment_by: 2,
@@ -50,6 +51,7 @@ export default function AskAI() {
         replies: 0,
         retweets: 0,
         parent_id: null,
+        parent_post_id: 2,
       });
       newMap.set(max_com + 3, {
         comment_by: 2,
@@ -58,6 +60,7 @@ export default function AskAI() {
         replies: 0,
         retweets: 0,
         parent_id: max_com + 2,
+        parent_post_id: null,
       });
       newMap.set(max_com + 4, {
         comment_by: 2,
@@ -66,6 +69,7 @@ export default function AskAI() {
         replies: 0,
         retweets: 0,
         parent_id: max_com + 3,
+        parent_post_id: null,
       });
       return newMap;
     });

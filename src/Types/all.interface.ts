@@ -42,6 +42,7 @@ export interface userType {
     retweets: number;
     replies: number;
     parent_id: number | null;
+    parent_post_id: number | null;
   }
 
  

@@ -36,7 +36,7 @@ export default function PermanentDrawerLeft() {
     <div>
       <Box sx={{ display: "flex" }}>
         <CssBaseline />
-        <AppBar
+        {/* <AppBar
           position="fixed"
           sx={{
             width: `calc(100% - ${drawerWidth}px)`,
@@ -46,7 +46,7 @@ export default function PermanentDrawerLeft() {
           <Toolbar>
             <Typography variant="h6" noWrap component="div"></Typography>
           </Toolbar>
-        </AppBar>
+        </AppBar> */}
         <Drawer
           sx={{
             width: drawerWidth,
@@ -118,9 +118,13 @@ export default function PermanentDrawerLeft() {
 
         <Box
           component="main"
-          sx={{ flexGrow: 1, bgcolor: "background.default", p: 3 }}
+          sx={{
+            flexGrow: 1,
+            bgcolor: "background.default",
+            //  p: 3
+          }}
         >
-          <Toolbar />
+          {/* <Toolbar /> */}
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/Profile" element={<Profile />} />

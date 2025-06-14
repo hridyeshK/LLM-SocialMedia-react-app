@@ -1,10 +1,14 @@
 import {
+  AppBar,
   Avatar,
   Card,
   CardContent,
   IconButton,
   Snackbar,
+  Tab,
+  Tabs,
   TextField,
+  Toolbar,
   Typography,
 } from "@mui/material";
 import SinglePost from "./SinglePost";
@@ -27,9 +31,23 @@ export default function Profile() {
   //   setChecked((prev) => !prev);
   //   console.log("hello2");
   // };
+  const drawerWidth = 240;
 
   return (
     <div>
+      <div style={{ height: "180px", background: "grey" }}></div>
+
+      <Tabs
+        // value={value}
+        // onChange={handleChange}
+        aria-label="basic tabs example"
+        variant="fullWidth"
+      >
+        <Tab label="Item One" value="1"></Tab>
+        <Tab label="Item Two" />
+        <Tab label="Item Three" />
+      </Tabs>
+
       <div style={style1}>
         <Textbox></Textbox>
       </div>
@@ -51,15 +69,6 @@ export default function Profile() {
             ></SinglePost>
           </div>
         ))}
-      {/* <div style={style1}>
-        <SinglePost />
-      </div>
-      <div style={style1}>
-        <SinglePost />
-      </div>
-      <div style={style1}>
-        <SinglePost />
-      </div> */}
     </div>
   );
 }
