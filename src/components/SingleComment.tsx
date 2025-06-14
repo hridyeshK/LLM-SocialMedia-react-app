@@ -7,21 +7,20 @@ import {
   SubdirectoryArrowRightRounded,
 } from "@mui/icons-material";
 import { Avatar, CardActions, IconButton, Typography } from "@mui/material";
-import { commentType } from "../Types/all.interface";
 import { useContext } from "react";
 import { BigContext } from "./GlobalContext";
 
-export default function SingleComment(props: { comment: commentType }) {
+export default function SingleComment(props: { comment_id: number }) {
   const { allUsers, allCommentsMap } = useContext(BigContext);
   // const actualComment = allCommentsMap.get(props.comment.comment_id);
-  const name = allCommentsMap.has(props.comment.comment_id)
+  const name = allCommentsMap.has(props.comment_id)
     ? allUsers.filter(
-        (x) => x.id === allCommentsMap.get(props.comment.comment_id)?.comment_by
+        (x) => x.id === allCommentsMap.get(props.comment_id)?.comment_by
       )[0]?.name
     : "";
-  const username = allCommentsMap.has(props.comment.comment_id)
+  const username = allCommentsMap.has(props.comment_id)
     ? allUsers.filter(
-        (x) => x.id === allCommentsMap.get(props.comment.comment_id)?.comment_by
+        (x) => x.id === allCommentsMap.get(props.comment_id)?.comment_by
       )[0]?.username
     : "";
 
@@ -76,7 +75,7 @@ export default function SingleComment(props: { comment: commentType }) {
         sx={{ color: "#000000", fontSize: "14px" }}
         style={{ marginLeft: "46px" }}
       >
-        {allCommentsMap.get(props.comment.comment_id)?.comment_text ||
+        {allCommentsMap.get(props.comment_id)?.comment_text ||
           "[Comment Deleted]"}
       </Typography>
 

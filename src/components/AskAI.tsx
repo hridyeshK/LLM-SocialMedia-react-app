@@ -41,6 +41,7 @@ export default function AskAI() {
         likes: 0,
         replies: 0,
         retweets: 0,
+        parent_id: null,
       });
       newMap.set(max_com + 2, {
         comment_by: 2,
@@ -48,6 +49,23 @@ export default function AskAI() {
         likes: 0,
         replies: 0,
         retweets: 0,
+        parent_id: null,
+      });
+      newMap.set(max_com + 3, {
+        comment_by: 2,
+        comment_text: "this is a comment in a comment",
+        likes: 0,
+        replies: 0,
+        retweets: 0,
+        parent_id: max_com + 2,
+      });
+      newMap.set(max_com + 4, {
+        comment_by: 2,
+        comment_text: "this is a comment in a comment which is in a comment",
+        likes: 0,
+        replies: 0,
+        retweets: 0,
+        parent_id: max_com + 3,
       });
       return newMap;
     });
@@ -60,34 +78,7 @@ export default function AskAI() {
         post_by: maxid + 2,
         post_text: "Gods of death love apples",
         comments: 0,
-        commentsArray: [
-          {
-            comment_id: 1,
-            commentsArray: [
-              {
-                comment_id: 5,
-                commentsArray: [
-                  {
-                    comment_id: 6,
-                    commentsArray: [],
-                  },
-                ],
-              },
-            ],
-          },
-          {
-            comment_id: 2,
-            commentsArray: [],
-          },
-          {
-            comment_id: 3,
-            commentsArray: [],
-          },
-          {
-            comment_id: 4,
-            commentsArray: [],
-          },
-        ],
+        commentsArray: [],
         likes: 0,
         retweets: 0,
         time: getFormattedDateTime(),

@@ -14,6 +14,7 @@ import {
   Dialog,
   Grow,
   IconButton,
+  TextField,
   Typography,
 } from "@mui/material";
 import Button from "@mui/material/Button";
@@ -21,7 +22,11 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import SingleComment from "./SingleComment";
 import { useContext, useState } from "react";
-import { commentType, postType } from "../Types/all.interface";
+import {
+  actualCommentType,
+  commentType,
+  postType,
+} from "../Types/all.interface";
 import { BigContext } from "./GlobalContext";
 // import { useState } from "react";
 
@@ -31,13 +36,19 @@ export default function CommentDialog(props: {
   post: postType;
 }) {
   // const [open, setOpen] = useState(props.open);
-  const { allUsers } = useContext(BigContext);
+  const { allUsers, allCommentsMap } = useContext(BigContext);
   const [commentsClicked, setCommentsClicled] = useState<boolean>(true);
   const name = allUsers.filter((x) => x.id === props.post.post_by)[0]?.name;
   // const username = allUsers.filter((x) => x.id === props.post.post_by)[0]?.username;
   console.log(props.post);
-  const AllComments = props.post.commentsArray.map((x, i) => (
-    <RecursiveDialog key={i} comment={x}></RecursiveDialog>
+  // const AllComments = props.post.commentsArray.map((x, i) => (
+  //   <RecursiveDialog key={i} comment={x}></RecursiveDialog>
+  // ));
+  const newCommentArray = Array.from(allCommentsMap).filter(
+    (x) => x[1].parent_id == null
+  );
+  const AllComments = newCommentArray.map((x, i) => (
+    <RecursiveDialog key={i} parentID={x[0]} comment={x[1]}></RecursiveDialog>
   ));
 
   return (
@@ -116,6 +127,8 @@ export default function CommentDialog(props: {
             </CardActions>
           </div>
 
+          <TextField style={{ borderRadius: "50%" }}></TextField>
+
           <div>
             <Button
               variant="text"
@@ -151,14 +164,23 @@ export default function CommentDialog(props: {
   );
 }
 
-const RecursiveDialog = (props: { comment: commentType }) => {
+const RecursiveDialog = (props: {
+  parentID: number;
+  comment: actualCommentType;
+}) => {
+  const { allCommentsMap } = useContext(BigContext);
   const [commentsClicked, setCommentsClicled] = useState<boolean>(false);
+  const OneCommentArray = Array.from(allCommentsMap).filter(
+    (x) => x[1].parent_id == props.parentID
+  );
 
   return (
     <>
       {/* <div style={{ width: "50%" }}> */}
       <div>
-        <SingleComment comment={props.comment}></SingleComment>
+        <SingleComment comment_id={props.parentID}></SingleComment>
+
+        <TextField size="small" style={{ marginLeft: "30px" }}></TextField>
 
         <div style={{ display: "flex" }}>
           <div
@@ -198,8 +220,12 @@ const RecursiveDialog = (props: { comment: commentType }) => {
 
           {commentsClicked ? (
             <div style={{ marginLeft: "30x" }}>
-              {props.comment.commentsArray.map((x, i) => (
-                <RecursiveDialog key={i} comment={x}></RecursiveDialog>
+              {OneCommentArray.map((x, i) => (
+                <RecursiveDialog
+                  key={i}
+                  parentID={x[0]}
+                  comment={x[1]}
+                ></RecursiveDialog>
               ))}
             </div>
           ) : (
