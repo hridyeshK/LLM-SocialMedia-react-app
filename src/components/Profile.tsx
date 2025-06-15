@@ -12,7 +12,13 @@ import {
   Typography,
 } from "@mui/material";
 import SinglePost from "./SinglePost";
-import { AddCircleOutlineRounded } from "@mui/icons-material";
+import {
+  AddCircleOutlineRounded,
+  Favorite,
+  Person,
+  Person2Rounded,
+  ReplyAll,
+} from "@mui/icons-material";
 import { useContext, useState } from "react";
 import { BigContext } from "./GlobalContext";
 
@@ -25,6 +31,10 @@ const style1 = {
 
 export default function Profile() {
   const { currUser, allPosts } = useContext(BigContext);
+  const [tabvalue, setTabvalue] = useState(0);
+  const handleChangeTab = (_event: React.SyntheticEvent, x: number) => {
+    setTabvalue(x);
+  };
   // const [checked, setChecked] = React.useState(false);
   // const handleChange = () => {
   //   console.log("hello1");
@@ -37,38 +47,40 @@ export default function Profile() {
     <div>
       <div style={{ height: "180px", background: "grey" }}></div>
 
-      <Tabs
-        // value={value}
-        // onChange={handleChange}
-        aria-label="basic tabs example"
-        variant="fullWidth"
-      >
-        <Tab label="Item One" value="1"></Tab>
-        <Tab label="Item Two" />
-        <Tab label="Item Three" />
+      <Tabs variant="fullWidth" value={tabvalue} onChange={handleChangeTab}>
+        <Tab icon={<Person></Person>} label="All posts"></Tab>
+        <Tab icon={<ReplyAll></ReplyAll>} label="Replies" />
+        <Tab icon={<Favorite></Favorite>} label="Likes" />
       </Tabs>
 
-      <div style={style1}>
-        <Textbox></Textbox>
-      </div>
-      {allPosts
-        .filter((x) => x.post_by === currUser.id)
-        .slice(0)
-        .reverse()
-        .map((x, i) => (
-          <div key={i} style={style1}>
-            <SinglePost
-              post_id={1}
-              post_by={currUser.id}
-              post_text={x.post_text}
-              time={x.time}
-              likes={0}
-              retweets={0}
-              comments={0}
-              commentsArray={[]}
-            ></SinglePost>
+      {tabvalue == 0 && (
+        <>
+          <div style={style1}>
+            <Textbox></Textbox>
           </div>
-        ))}
+          {allPosts
+            .filter((x) => x.post_by === currUser.id)
+            .slice(0)
+            .reverse()
+            .map((x, i) => (
+              <div key={i} style={style1}>
+                <SinglePost
+                  post_id={1}
+                  post_by={currUser.id}
+                  post_text={x.post_text}
+                  time={x.time}
+                  likes={0}
+                  retweets={0}
+                  comments={0}
+                  commentsArray={[]}
+                ></SinglePost>
+              </div>
+            ))}
+        </>
+      )}
+
+      {tabvalue == 1 && <div> hello 2</div>}
+      {tabvalue == 2 && <div> hello 3</div>}
     </div>
   );
 }
