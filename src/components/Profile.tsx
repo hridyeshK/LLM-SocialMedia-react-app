@@ -1,5 +1,5 @@
 import {
-  AppBar,
+  // AppBar,
   Avatar,
   Card,
   CardContent,
@@ -8,7 +8,7 @@ import {
   Tab,
   Tabs,
   TextField,
-  Toolbar,
+  // Toolbar,
   Typography,
 } from "@mui/material";
 import SinglePost from "./SinglePost";
@@ -16,7 +16,7 @@ import {
   AddCircleOutlineRounded,
   Favorite,
   Person,
-  Person2Rounded,
+  // Person2Rounded,
   ReplyAll,
 } from "@mui/icons-material";
 import { useContext, useState } from "react";
@@ -41,7 +41,7 @@ export default function Profile() {
   //   setChecked((prev) => !prev);
   //   console.log("hello2");
   // };
-  const drawerWidth = 240;
+  // const drawerWidth = 240;
 
   return (
     <div>

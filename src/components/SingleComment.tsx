@@ -4,7 +4,6 @@ import {
   Repeat,
   Reply,
   Send,
-  SubdirectoryArrowRightRounded,
 } from "@mui/icons-material";
 import { Avatar, CardActions, IconButton, Typography } from "@mui/material";
 import { useContext } from "react";

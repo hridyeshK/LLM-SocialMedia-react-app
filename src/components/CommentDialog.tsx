@@ -6,7 +6,7 @@ import {
   FavoriteBorder,
   Repeat,
   Send,
-  SubdirectoryArrowRightRounded,
+  // SubdirectoryArrowRightRounded,
 } from "@mui/icons-material";
 import {
   Avatar,
@@ -24,7 +24,7 @@ import SingleComment from "./SingleComment";
 import { useContext, useState } from "react";
 import {
   actualCommentType,
-  commentType,
+  // commentType,
   postType,
 } from "../Types/all.interface";
 import { BigContext } from "./GlobalContext";

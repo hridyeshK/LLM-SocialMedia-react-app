@@ -1,5 +1,5 @@
 import {
-  AppBar,
+  // AppBar,
   Box,
   CssBaseline,
   Divider,
@@ -11,7 +11,7 @@ import {
   ListItemIcon,
   ListItemText,
   Toolbar,
-  Typography,
+  // Typography,
 } from "@mui/material";
 import { Routes, Route } from "react-router";
 import { Link } from "react-router";
@@ -26,8 +26,8 @@ import AskAI from "./AskAI";
 import HomeFilledIcon from "@mui/icons-material/HomeFilled";
 import Lists from "./Lists";
 import HomePage from "./HomePage";
-import { BigContext } from "./GlobalContext";
-import { useContext } from "react";
+// import { BigContext } from "./GlobalContext";
+// import { useContext } from "react";
 
 const drawerWidth = 240;
 
