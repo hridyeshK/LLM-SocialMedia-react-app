@@ -79,7 +79,7 @@ export default function Profile() {
         </>
       )}
 
-      {tabvalue == 1 && <div> hello 2</div>}
+      {tabvalue == 1 && <div> hello 2 again</div>}
       {tabvalue == 2 && <div> hello 3</div>}
     </div>
   );
