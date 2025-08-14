@@ -1,7 +1,7 @@
 import "./App.css";
 import GlobalContext from "./components/GlobalContext";
 import PermanentDrawerLeft from "./components/PermanentDrawerLeft";
-import { BrowserRouter } from "react-router";
+import { HashRouter as BrowserRouter } from "react-router";
 
 function App() {
   return (
