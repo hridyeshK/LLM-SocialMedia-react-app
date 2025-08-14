@@ -1,4 +1,4 @@
-# An LLM powered multipurpose social media app
+# An LLM-powered multipurpose social media app
 
 <!-- # React + TypeScript + Vite
 
